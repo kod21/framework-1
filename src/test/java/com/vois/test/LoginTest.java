@@ -5,6 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.voic.base.AutomationWrapper;
+import com.vois.pages.DashboardPage;
+import com.vois.pages.LoginPage;
 
 public class LoginTest extends AutomationWrapper {
 	
@@ -12,19 +14,21 @@ public class LoginTest extends AutomationWrapper {
 	@Test
 	public void validLoginTest()
 	{
-		driver.findElement(By.name("username")).sendKeys("Admin");
-		driver.findElement(By.name("password")).sendKeys("admin123");
-		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+		LoginPage login= new LoginPage(driver);
+		login.enterUsername("Admin");
+		login.enterPassword("admin123");
+		login.clickOnLogin();
 		//Assert 
-		String actualText=driver.findElement(By.xpath("//p[contains(normalize-space,'Quick')]")).getText();
-		Assert.assertTrue(actualText.contains("Quick Launch"));
+		DashboardPage dashboard=new DashboardPage(driver);
+		Assert.assertEquals(dashboard.getQuickLaunchText(),("Quick Launch"));
 	}
 	
 	public void invalidLoginTest()
 	{
-		driver.findElement(By.name("username")).sendKeys("john");
-		driver.findElement(By.name("password")).sendKeys("admin123");
-		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+		LoginPage login= new LoginPage(driver);
+		login.enterUsername("John");
+		login.enterPassword("admin123");
+		login.clickOnLogin();
 		
 		String actualError=driver.findElement(By.xpath("//p[contains(normalize-space(),'Invalid credentials')]")).getText();
 		Assert.assertEquals(actualError, "Invalid credentials");
