@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import com.voic.base.AutomationWrapper;
 import com.vois.pages.DashboardPage;
 import com.vois.pages.LoginPage;
+import com.vois.utils.DataUtils;
 
 public class LoginTest extends AutomationWrapper {
 	
@@ -23,6 +24,9 @@ public class LoginTest extends AutomationWrapper {
 		Assert.assertEquals(dashboard.getQuickLaunchText(),("Quick Launch"));
 	}
 	
+	
+	
+	@Test(dataProviderClass=DataUtils.class,dataProvider="invalidLoginData")
 	public void invalidLoginTest()
 	{
 		LoginPage login= new LoginPage(driver);

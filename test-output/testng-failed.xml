@@ -7,6 +7,7 @@
         <methods>
           <include name="setup"/>
           <include name="validLoginTest"/>
+          <include name="invalidLoginTest"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- com.vois.test.LoginTest -->
